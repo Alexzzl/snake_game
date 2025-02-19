@@ -3,10 +3,24 @@ const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
 // 游戏配置
-const gridSize = 20;
-const tileCount = canvas.width / gridSize;
+let gridSize = 20; // 改为可变的网格大小
+let tileCount = 20; // 固定网格数量
 let gameSpeed = 150; // 初始游戏速度
 let difficulty = 'normal'; // 游戏难度
+
+// 调整画布大小的函数
+function resizeCanvas() {
+    const minSize = Math.min(window.innerWidth * 0.8, window.innerHeight * 0.8);
+    canvas.width = minSize;
+    canvas.height = minSize;
+    gridSize = minSize / tileCount; // 重新计算网格大小
+}
+
+// 初始化画布大小
+resizeCanvas();
+
+// 监听窗口大小变化
+window.addEventListener('resize', resizeCanvas);
 
 // 蛇的初始位置和速度
 let snake = [
